@@ -37,7 +37,7 @@ namespace ControlInventarioUniversidad
             }
             lbTotalFinal.Text = total.ToString();
         }
-        public void CerrarVenta()
+        public void CerrarVenta()  //esta incompleto
         {
             //MessageBox.Show("Label Total: "+lbTotalFinal.Text);
             //MessageBox.Show("Ingreso: "+TBcaja.Text);
