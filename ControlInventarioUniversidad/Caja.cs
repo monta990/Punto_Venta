@@ -20,31 +20,33 @@ namespace ControlInventarioUniversidad
         public Caja()
         {
             InitializeComponent();
-            this.labelversion.Text= String.Format("Version {0}", Assembly.GetExecutingAssembly().GetName().Version.ToString());
-            this.lbfecha.Text = DateTime.Today.ToShortDateString()+ " " +DateTime.Now.ToLongTimeString();
+            this.labelversion.Text= String.Format("Version {0}", Assembly.GetExecutingAssembly().GetName().Version.ToString());  //carga versión
+            this.lbfecha.Text = DateTime.Today.ToShortDateString()+ " " +DateTime.Now.ToLongTimeString(); // muestra fecha de timer
         }
         MySqlConnection con;
         MySqlCommand com;
         MySqlDataReader Lector;
-        public float total = 0;
-        public float cambio;
-        public void gentotal()
+        public float total = 0; //variable para guardar total
+        public float cambio; //variable para cambio , se llama en el modulo de impresión
+        public void gentotal() //calcula el total
         {
             float total = 0;
             for (int i = 0; i < dVCaja.RowCount; i++)
             {
-                total += float.Parse(dVCaja[3,i].Value.ToString());
-                lbTotalFinal.Text = total.ToString();
+                total += float.Parse(dVCaja[3,i].Value.ToString()); //suma cada articulo a total
+                lbTotalFinal.Text = total.ToString(); //label de total a variable
             }
             lbTotalFinal.Text = total.ToString();
         }
-        public void CerrarVenta()  //esta incompleto
+        public void CerrarVenta()  //cierra venta, manda a imprimir ticket y guarda log en base de datos
         {
-            //MessageBox.Show("Label Total: "+lbTotalFinal.Text);
+            //inicio de mensajes de diaganostico
+            //MessageBox.Show("Label Total: "+lbTotalFinal.Text); 
             //MessageBox.Show("Ingreso: "+TBcaja.Text);
             //lbTotalFinal.Text = lbTotalFinal.Text.Substring(6,6);
+            //fin de mensajea de diagnostico
             
-            if (float.Parse(lbTotalFinal.Text) >= total)
+            if (float.Parse(lbTotalFinal.Text) >= total) //carga los datos en el log de ventas en BD
             {
                 cambio = float.Parse(lbTotalFinal.Text) - total;
                 MessageBox.Show("Su cambio es: " + (float.Parse(TBcaja.Text) - float.Parse(lbTotalFinal.Text)));
@@ -57,12 +59,6 @@ namespace ControlInventarioUniversidad
                 con.Close();
                 foreach (DataGridViewRow R in dVCaja.Rows)
                 {
-                    //con = new MySqlConnection("Server = 127.0.0.1;Database=integradora;Uid=root;Pwd=alvarez");  //offline
-                    //con.Open();
-                    //string query = "INSERT INTO venta_detalle VALUES (select max(id_venta) from ventas, '" R.Cells[1].ToString;
-                    //com = new MySqlCommand(query, con);
-                    //MySqlDataReader Lector = com.ExecuteReader();
-                    //con.Close();
                     con = new MySqlConnection("Server = 127.0.0.1;Database=integradora;Uid=root;Pwd=alvarez");
                     con.Open();
                     query = "INSERT INTO venta_detalle VALUES ((select max(id_venta) FROM ventas),'" + R.Cells[1].Value.ToString() + "', " + R.Cells[3].Value.ToString() + ");";
@@ -70,7 +66,7 @@ namespace ControlInventarioUniversidad
                     com.ExecuteNonQuery();
                     con.Close();
                 }
-                Imprimir();
+                Imprimir(); // llama imprimir
                 lbTotalFinal.Text = "0.00";
                 dVCaja.Rows.Clear();
                 TBcaja.SelectAll();
@@ -78,7 +74,7 @@ namespace ControlInventarioUniversidad
                 TBcaja.Focus();
             }
         }
-        public void Imprimir()
+        public void Imprimir() //genera el ticket
         {
             try
             {
@@ -93,6 +89,7 @@ namespace ControlInventarioUniversidad
                     tiquetcito.AddItem(R.Cells[0].Value.ToString(), R.Cells[1].Value.ToString(), R.Cells[2].Value.ToString());
                 }
                 tiquetcito.AddTotal("Total: ", lbTotalFinal.Text);
+                tiquetcito.AddTotal("Cambio: ", cambio.ToString());
                 tiquetcito.AddFooterLine("Gracias por su compra");
                 tiquetcito.PrintTicket("EC-PM-5890X");
             }
@@ -130,7 +127,7 @@ namespace ControlInventarioUniversidad
             {
                 try
                 {
-                    if (TBcaja.Text.IndexOf('*') != -1)
+                    if (TBcaja.Text.IndexOf('*') != -1) //multiplica el articulo (ejemplo 10*cosigo de barras)
                     {
                         string[] cantCodigo = TBcaja.Text.Split('*');
                         double bProducto = double.Parse(cantCodigo[1]);
@@ -145,7 +142,7 @@ namespace ControlInventarioUniversidad
                             dVCaja.Rows.Add(cantCodigo[0], Lector.GetString(1), Lector.GetDouble(2), double.Parse(subTotal.ToString())); // si esta null
                         }
                     }
-                    else
+                    else // si no hay multiplicación
                     {
                         con = new MySqlConnection("Server = 127.0.0.1;Database=integradora;Uid=root;Pwd=alvarez");  //offline
                         con.Open();

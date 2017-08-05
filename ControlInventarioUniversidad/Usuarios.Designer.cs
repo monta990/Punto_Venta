@@ -428,7 +428,6 @@ namespace ControlInventarioUniversidad
             this.cBusuario.Name = "cBusuario";
             this.cBusuario.Size = new System.Drawing.Size(179, 21);
             this.cBusuario.TabIndex = 29;
-            this.cBusuario.SelectedIndexChanged += new System.EventHandler(this.cBusuario_SelectedIndexChanged);
             // 
             // btn_csv
             // 

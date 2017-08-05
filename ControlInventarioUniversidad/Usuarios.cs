@@ -26,8 +26,8 @@ namespace ControlInventarioUniversidad
         MySqlCommand com;
         MySqlDataReader Lector;
         string ruta = "";
-        string ima = @"C:\Users\monta\OneDrive\Documentos\Visual Studio 2017\Projects\Punto_Venta\ControlInventarioUniversidad\imagenes\noima.png";
-        private void Usuarios_Load(object sender, EventArgs e)
+        string ima = @"C:\Users\monta\OneDrive\Documentos\Visual Studio 2017\Projects\Punto_Venta\ControlInventarioUniversidad\imagenes\noima.png"; //imagen predeterminada del sistema
+        private void Usuarios_Load(object sender, EventArgs e) //carga datagredview con datos al iniciar
         {
             dGvUsuarios.Rows.Clear();
             try
@@ -61,12 +61,12 @@ namespace ControlInventarioUniversidad
             btLimpiar_Click(sender, e); //limpiar textbox
         }
 
-        private void btSalir_Click(object sender, EventArgs e)
+        private void btSalir_Click(object sender, EventArgs e) // cierra el formulario
         {
             this.Close();
         }
 
-        private void btCrear_Click(object sender, EventArgs e)
+        private void btCrear_Click(object sender, EventArgs e) //Da de alta un usuario
         {
             if (ruta.Trim() == "")
             {
@@ -113,7 +113,7 @@ namespace ControlInventarioUniversidad
             dataGridView1_CellClick(sender, e); //cargar datos al dar enter o moverce en el datagrid
         }
 
-        private void btLimpiar_Click(object sender, EventArgs e)
+        private void btLimpiar_Click(object sender, EventArgs e) //Limpia todos los campos
         {
             tBtipousuario.Focus();
             tBtipousuario.Clear();
@@ -139,7 +139,7 @@ namespace ControlInventarioUniversidad
             }
         }
 
-        private void btEliminar_Click(object sender, EventArgs e)
+        private void btEliminar_Click(object sender, EventArgs e) //Elimina el usuario seleccionado
         {
             DialogResult dialog = MessageBox.Show("Estas seguro de eliminar al usuario?", "Eliminar", MessageBoxButtons.YesNo); //confima salida del sistema
             if (dialog == DialogResult.Yes)
@@ -159,7 +159,7 @@ namespace ControlInventarioUniversidad
             }
         }
 
-        private void btActualizar_Click(object sender, EventArgs e)
+        private void btActualizar_Click(object sender, EventArgs e) //actualizar usuario, detalles con la imagen
         {
             if (ruta.Trim() == "")
             {
@@ -187,7 +187,7 @@ namespace ControlInventarioUniversidad
             }
         }
 
-        private void btBackup_Click(object sender, EventArgs e)
+        private void btBackup_Click(object sender, EventArgs e) // Back up de la base de datos. basado en campos de la tabla en INSERTS
         {
             SaveFileDialog file = new SaveFileDialog();
             file.Filter = "SQL (*.SQL)| *.SQL";
@@ -211,7 +211,7 @@ namespace ControlInventarioUniversidad
             System.Diagnostics.Process.Start(file.FileName);
         }
 
-        private void btPdf_Click(object sender, EventArgs e)
+        private void btPdf_Click(object sender, EventArgs e) //Genera PDF
         {
             SaveFileDialog File = new SaveFileDialog();
             File.Filter = "PDF (*.PDF)| *.PDF";
@@ -261,8 +261,7 @@ namespace ControlInventarioUniversidad
             }
         }
 
-
-        private void btExcel_Click(object sender, EventArgs e)
+        private void btExcel_Click(object sender, EventArgs e) //Exportar a excel
         {
             SaveFileDialog File = new SaveFileDialog();
             File.Filter = "Archivo de Excel (*.xlsx)|*.xlsx";
@@ -298,17 +297,7 @@ namespace ControlInventarioUniversidad
             }
         }
 
-        private void cBusuario_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btn_expBD_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btn_csv_Click(object sender, EventArgs e)
+        private void btn_csv_Click(object sender, EventArgs e) //salvar en CSV
         {
             SaveFileDialog file = new SaveFileDialog();
             file.Filter = "CSV (*.CSV)| *.CSV";

@@ -24,10 +24,10 @@ namespace ControlInventarioUniversidad
         MySqlConnection con;
         MySqlCommand com;
         MySqlDataReader Lector;
-        string ruta = "";
-        private void Productos_Load(object sender, EventArgs e)
+        string ruta = ""; //ruta de imagenes para productos
+        private void Productos_Load(object sender, EventArgs e) //carga datos al datagredview en el arranque
         {
-            dGvProductos.Rows.Clear();
+            dGvProductos.Rows.Clear(); 
             try
             {
                 con = new MySqlConnection("Server = 127.0.0.1;Database=integradora;Uid=root;Pwd=alvarez");  //offline
@@ -59,12 +59,12 @@ namespace ControlInventarioUniversidad
             btLimpiar_Click(sender, e); //limpiar textbox
         }
 
-        private void btSalir_Click(object sender, EventArgs e)
+        private void btSalir_Click(object sender, EventArgs e) //finaliza form
         {
             this.Close();
         }
 
-        private void btCrear_Click(object sender, EventArgs e)
+        private void btCrear_Click(object sender, EventArgs e) //crea producto
         {
             con = new MySqlConnection("Server = 127.0.0.1;Database=integradora;Uid=root;Pwd=alvarez");  //offline
             con.Open();
@@ -93,7 +93,7 @@ namespace ControlInventarioUniversidad
             dataGridView1_CellClick(sender, e); //cargar datos al dar enter o moverce en el datagrid
         }
 
-        private void btLimpiar_Click(object sender, EventArgs e)
+        private void btLimpiar_Click(object sender, EventArgs e) //limpia los datos de los textbox
         {
             tBcodigo.Focus();
             tBcodigo.Clear();
@@ -116,7 +116,7 @@ namespace ControlInventarioUniversidad
             }
         }
 
-        private void btEliminar_Click(object sender, EventArgs e)
+        private void btEliminar_Click(object sender, EventArgs e) //elimina el producto seleccionado
         {
             DialogResult dialog = MessageBox.Show("Estas seguro de eliminar el producto?", "Eliminar", MessageBoxButtons.YesNo); //confima salida del sistema
             if (dialog == DialogResult.Yes)
@@ -137,7 +137,7 @@ namespace ControlInventarioUniversidad
             }
         }
 
-        private void btActualizar_Click(object sender, EventArgs e)
+        private void btActualizar_Click(object sender, EventArgs e) //actualiza el articulo seleccionado
         {
             con = new MySqlConnection("Server = 127.0.0.1;Database=integradora;Uid=root;Pwd=alvarez");  //offline
             con.Open();
@@ -149,7 +149,7 @@ namespace ControlInventarioUniversidad
             Productos_Load(sender, e);
         }
 
-        private void btBackup_Click(object sender, EventArgs e)
+        private void btBackup_Click(object sender, EventArgs e) //genera el backup con insert´s para base de datos con los datos del datagredview
         {
             SaveFileDialog file = new SaveFileDialog();
             file.Filter = "SQL (*.SQL)| *.SQL";
@@ -172,7 +172,7 @@ namespace ControlInventarioUniversidad
             System.Diagnostics.Process.Start(file.FileName);
         }
 
-        private void btPdf_Click(object sender, EventArgs e)
+        private void btPdf_Click(object sender, EventArgs e) //genera un pdf
         {
             SaveFileDialog File = new SaveFileDialog();
             File.Filter = "PDF (*.PDF)| *.PDF";
@@ -218,20 +218,12 @@ namespace ControlInventarioUniversidad
             }
         }
 
-        private void btExcel_Click(object sender, EventArgs e)
+        private void btExcel_Click(object sender, EventArgs e) //genera un archivo de excel
         {
             SaveFileDialog File = new SaveFileDialog();
             File.Filter = "Archivo de Excel (*.xlsx)|*.xlsx";
             if (File.ShowDialog() == DialogResult.OK)
             {
-                //Microsoft.Office.Interop.Excel.Application app; //selecciona la app
-                //Microsoft.Office.Interop.Excel.Workbook libro; //genera libro para excel
-                //Microsoft.Office.Interop.Excel.Worksheet hoja; //genera la hoja del libro
-                //app = new Microsoft.Office.Interop.Excel.Application();
-                //libro = app.Workbooks.Add();
-                //libro.SaveAs(File.FileName, Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal);
-                //libro.Close(true);
-                //app.Quit();
                 Microsoft.Office.Interop.Excel.Application app; //selecciona la app
                 Microsoft.Office.Interop.Excel.Workbook libro; //genera libro para excel
                 Microsoft.Office.Interop.Excel.Worksheet hoja; //genera la hoja del libro
@@ -263,7 +255,7 @@ namespace ControlInventarioUniversidad
             System.Diagnostics.Process.Start(File.FileName);
         }
 
-        private void bt_csv_Click(object sender, EventArgs e)
+        private void bt_csv_Click(object sender, EventArgs e) //genera un archivo csv
         {
             SaveFileDialog file = new SaveFileDialog();
             file.Filter = "CSV (*.CSV)| *.CSV";
