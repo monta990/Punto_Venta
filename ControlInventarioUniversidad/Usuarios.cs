@@ -21,6 +21,7 @@ namespace ControlInventarioUniversidad
         {
             InitializeComponent();
         }
+        public int usuario;
         MySqlConnection con;
         MySqlCommand com;
         MySqlDataReader Lector;
@@ -88,7 +89,15 @@ namespace ControlInventarioUniversidad
         {
             if (e.RowIndex!=-1)
             {
-                tBtipousuario.Text = dGvUsuarios[0, e.RowIndex].Value.ToString();
+                if (dGvUsuarios[0, e.RowIndex].Value.ToString()=="0")
+                {
+                    cBusuario.Text = cBusuario.Items[0].ToString();
+                }
+                else if (dGvUsuarios[0, e.RowIndex].Value.ToString() == "1")
+                {
+                    cBusuario.Text = cBusuario.Items[1].ToString();
+                }
+                //tBtipousuario.Text = dGvUsuarios[0, e.RowIndex].Value.ToString();
                 tBidusuario.Text= dGvUsuarios[1, e.RowIndex].Value.ToString();
                 tBpssusuario.Text = dGvUsuarios[2, e.RowIndex].Value.ToString();
                 tBnombre.Text= dGvUsuarios[3, e.RowIndex].Value.ToString();
@@ -158,10 +167,18 @@ namespace ControlInventarioUniversidad
             }
             else
             {
+                if (cBusuario.Text== "Administrador")
+                {
+                    usuario = 0;
+                }
+                else if (cBusuario.Text == "Cajero")
+                {
+                    usuario = 1;
+                }
                 con = new MySqlConnection("Server = 127.0.0.1;Database=integradora;Uid=root;Pwd=alvarez");  //offline
                 con.Open();
                 ruta = ruta.Replace(@"\", @"\\");
-                string query = "UPDATE usuarios SET tipo_usuario = '" + tBtipousuario.Text + "', id_usuario = '" + tBidusuario.Text + "', pass_usuario = '" + tBpssusuario.Text + "', NOMBRE_USUARIO = '" + tBnombre.Text + "', AP_USUARIO = '" + tBapmaterno.Text + "', AM_USUARIO = '" + tBapmaterno.Text + "', MAIL_USUARIO = '" + tBemail.Text + "', FOTO_USUARIO = '" + ruta + "' WHERE id_usuario = '" + tBidusuario.Text + "'";
+                string query = "UPDATE usuarios SET tipo_usuario = '" + cBusuario.SelectedIndex + "', id_usuario = '" + tBidusuario.Text + "', pass_usuario = '" + tBpssusuario.Text + "', NOMBRE_USUARIO = '" + tBnombre.Text + "', AP_USUARIO = '" + tBapmaterno.Text + "', AM_USUARIO = '" + tBapmaterno.Text + "', MAIL_USUARIO = '" + tBemail.Text + "', FOTO_USUARIO = '" + ruta + "' WHERE id_usuario = '" + tBidusuario.Text + "'";
                 //string query = "INSERT INTO usuarios (tipo_usuario,id_usuario,pass_usuario,NOMBRE_USUARIO,AP_USUARIO,AM_USUARIO,MAIL_USUARIO,FOTO_USUARIO) VALUES ('" + tBtipousuario.Text + "','" + tBidusuario.Text + "','" + tBpssusuario.Text + "','" + tBnombre.Text + "','" + tBapmaterno.Text + "','" + tBappaterno.Text + "','" + tBemail.Text + "','" + ruta + "');";
                 MessageBox.Show("Articulo Actulizado");
                 com = new MySqlCommand(query, con);
@@ -172,58 +189,78 @@ namespace ControlInventarioUniversidad
 
         private void btBackup_Click(object sender, EventArgs e)
         {
-            string path=@"C:\respint\backup.sql";
-            using (StreamWriter Swbackup= File.CreateText(path));
-            for (int i = 0; i < dGvUsuarios.Rows.Count; i++)
+            SaveFileDialog file = new SaveFileDialog();
+            file.Filter = "SQL (*.SQL)| *.SQL";
+            if (file.ShowDialog() == DialogResult.OK)
             {
+                string path = file.FileName;
+                using (StreamWriter swbackup = File.CreateText(path))
+                    for (int i = 0; i < dGvUsuarios.Rows.Count - 1; i++)
+                    {
+                        swbackup.WriteLine("INSERT INTO usuarios (Id_usuario, Nombre_Usuario, Ap_usuario, Am_usuario, Tipo_Usuario, Email_Usuario) VALUES" +
+                        "('" + dGvUsuarios[0, i].Value.ToString() + "'," +
+                        dGvUsuarios[1, i].Value.ToString() + "','" +
+                        dGvUsuarios[2, i].Value.ToString() + "','" +
+                        dGvUsuarios[3, i].Value.ToString() + "'," +
+                        dGvUsuarios[4, i].Value.ToString() + ",'" +
+                        dGvUsuarios[5, i].Value.ToString() + "')");
 
+                    }
+                MessageBox.Show("Archivo " + file.FileName + " generado Correctamente.");
             }
+            System.Diagnostics.Process.Start(file.FileName);
         }
 
         private void btPdf_Click(object sender, EventArgs e)
         {
-            Document pdf = new Document(PageSize.LEGAL.Rotate());
-            try
+            SaveFileDialog File = new SaveFileDialog();
+            File.Filter = "PDF (*.PDF)| *.PDF";
+            if (File.ShowDialog() == DialogResult.OK)
             {
-                PdfWriter.GetInstance(pdf, new FileStream("usuarios.pdf", FileMode.Create));
-                pdf.Open();
-                //inicio de la generación del pdf
-                PdfPTable Tabla = new PdfPTable(5); //cantidad de columnas PDF
-                PdfPCell Titulo = new PdfPCell(new Phrase("Reporte de Usuarios"));
-                Titulo.HorizontalAlignment = 1; //1 para centrar
-                Titulo.Colspan = 5;
-                Tabla.AddCell(Titulo); //header pdf
-                Tabla.AddCell("Nivel"); //titulo columna
-                Tabla.AddCell("Usuario");
-                Tabla.AddCell("Nombre");
-                Tabla.AddCell("Apellido Paterno");
-                Tabla.AddCell("Apellido Materno");
-                Tabla.AddCell("Email");
-                //Tabla.AddCell("Imagen");
-                for (int i = 0; i < dGvUsuarios.Rows.Count; i++) //leer datagrid
+                Document pdf = new Document(PageSize.LEGAL.Rotate());
+                try
                 {
-                    Tabla.AddCell(dGvUsuarios[0, i].Value.ToString()); //nivel
-                    Tabla.AddCell(dGvUsuarios[1, i].Value.ToString()); //usuario
-                    Tabla.AddCell(dGvUsuarios[3, i].Value.ToString()); //nombre
-                    Tabla.AddCell(dGvUsuarios[4, i].Value.ToString()); //ap
-                    Tabla.AddCell(dGvUsuarios[5, i].Value.ToString()); //am
-                    Tabla.AddCell(dGvUsuarios[6, i].Value.ToString()); //email
-                    //Tabla.AddCell(new PdfPCell(iTextSharp.text.Image.GetInstance(@"D:\miller64.png"))); //ima
+                    PdfWriter.GetInstance(pdf, new FileStream(File.FileName, FileMode.Create));
+                    pdf.Open();
+                    //inicio de la generación del pdf
+                    PdfPTable Tabla = new PdfPTable(5); //cantidad de columnas PDF
+                    PdfPCell Titulo = new PdfPCell(new Phrase("Reporte de Usuarios"));
+                    Titulo.HorizontalAlignment = 1; //1 para centrar
+                    Titulo.Colspan = 5;
+                    Tabla.AddCell(Titulo); //header pdf
+                    Tabla.AddCell("Nivel"); //titulo columna
+                    Tabla.AddCell("Usuario");
+                    Tabla.AddCell("Nombre");
+                    Tabla.AddCell("Apellido Paterno");
+                    Tabla.AddCell("Apellido Materno");
+                    Tabla.AddCell("Email");
+                    //Tabla.AddCell("Imagen");
+                    for (int i = 0; i < dGvUsuarios.Rows.Count; i++) //leer datagrid
+                    {
+                        Tabla.AddCell(dGvUsuarios[0, i].Value.ToString()); //nivel
+                        Tabla.AddCell(dGvUsuarios[1, i].Value.ToString()); //usuario
+                        Tabla.AddCell(dGvUsuarios[3, i].Value.ToString()); //nombre
+                        Tabla.AddCell(dGvUsuarios[4, i].Value.ToString()); //ap
+                        Tabla.AddCell(dGvUsuarios[5, i].Value.ToString()); //am
+                        Tabla.AddCell(dGvUsuarios[6, i].Value.ToString()); //email
+                                                                           //Tabla.AddCell(new PdfPCell(iTextSharp.text.Image.GetInstance(@"D:\miller64.png"))); //ima
+                    }
+                    pdf.Add(Tabla);
+                    //fin del pdf
+                    pdf.Close();
                 }
-                pdf.Add(Tabla);
-                //fin del pdf
-                pdf.Close();
+                catch (DocumentException PDFerror)
+                {
+                    MessageBox.Show("No se pudo generar el PDF");
+                }
+                catch (IOException IOerror)
+                {
+                    MessageBox.Show("No se pudo guardar el archivo");
+                }
+                System.Diagnostics.Process.Start(File.FileName);
             }
-            catch (DocumentException PDFerror)
-            {
-
-            }
-            catch (IOException IOerror)
-            {
-
-            }
-            System.Diagnostics.Process.Start("usuarios.pdf");
         }
+
 
         private void btExcel_Click(object sender, EventArgs e)
         {
@@ -231,14 +268,6 @@ namespace ControlInventarioUniversidad
             File.Filter = "Archivo de Excel (*.xlsx)|*.xlsx";
             if (File.ShowDialog() == DialogResult.OK)
             {
-                //Microsoft.Office.Interop.Excel.Application app; //selecciona la app
-                //Microsoft.Office.Interop.Excel.Workbook libro; //genera libro para excel
-                //Microsoft.Office.Interop.Excel.Worksheet hoja; //genera la hoja del libro
-                //app = new Microsoft.Office.Interop.Excel.Application();
-                //libro = app.Workbooks.Add();
-                //libro.SaveAs(File.FileName, Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal);
-                //libro.Close(true);
-                //app.Quit();
                 Microsoft.Office.Interop.Excel.Application app; //selecciona la app
                 Microsoft.Office.Interop.Excel.Workbook libro; //genera libro para excel
                 Microsoft.Office.Interop.Excel.Worksheet hoja; //genera la hoja del libro
@@ -265,7 +294,40 @@ namespace ControlInventarioUniversidad
                 libro.SaveAs(File.FileName, Microsoft.Office.Interop.Excel.XlFileFormat.xlOpenXMLWorkbook);
                 libro.Close(true);
                 app.Quit();
+                System.Diagnostics.Process.Start(File.FileName);
             }
+        }
+
+        private void cBusuario_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_expBD_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_csv_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog file = new SaveFileDialog();
+            file.Filter = "CSV (*.CSV)| *.CSV";
+            if (file.ShowDialog() == DialogResult.OK)
+            {
+                string path = file.FileName;
+                using (StreamWriter swbackup = File.CreateText(path))
+                    for (int i = 0; i < dGvUsuarios.Rows.Count; i++)
+                    {
+                        swbackup.WriteLine(dGvUsuarios[0, i].Value.ToString() + "," +
+                                           dGvUsuarios[1, i].Value.ToString() + "," +
+                                           dGvUsuarios[2, i].Value.ToString() + "," +
+                                           dGvUsuarios[3, i].Value.ToString() + "," +
+                                           dGvUsuarios[4, i].Value.ToString() + "," +
+                                           dGvUsuarios[5, i].Value.ToString() + ")");
+                    }
+                MessageBox.Show("Archivo " + file.FileName + " guardado correctamente.");
+            }
+            System.Diagnostics.Process.Start(file.FileName);
         }
     }
 }

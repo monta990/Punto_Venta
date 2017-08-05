@@ -16,7 +16,7 @@ namespace ControlInventarioUniversidad
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Caja());
+            Application.Run(new Inicio());
         }
     }
 }

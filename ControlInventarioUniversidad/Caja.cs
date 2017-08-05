@@ -27,6 +27,7 @@ namespace ControlInventarioUniversidad
         MySqlCommand com;
         MySqlDataReader Lector;
         public float total = 0;
+        public float cambio;
         public void gentotal()
         {
             float total = 0;
@@ -45,7 +46,9 @@ namespace ControlInventarioUniversidad
             
             if (float.Parse(lbTotalFinal.Text) >= total)
             {
+                cambio = float.Parse(lbTotalFinal.Text) - total;
                 MessageBox.Show("Su cambio es: " + (float.Parse(TBcaja.Text) - float.Parse(lbTotalFinal.Text)));
+                //Guardar en BD
                 con = new MySqlConnection("Server = 127.0.0.1;Database=integradora;Uid=root;Pwd=alvarez");  //offline
                 con.Open();
                 string query = "INSERT INTO ventas VALUES (null, curdate(), curtime())";
@@ -60,8 +63,17 @@ namespace ControlInventarioUniversidad
                     //com = new MySqlCommand(query, con);
                     //MySqlDataReader Lector = com.ExecuteReader();
                     //con.Close();
+                    con = new MySqlConnection("Server = 127.0.0.1;Database=integradora;Uid=root;Pwd=alvarez");
+                    con.Open();
+                    query = "INSERT INTO venta_detalle VALUES ((select max(id_venta) FROM ventas),'" + R.Cells[1].Value.ToString() + "', " + R.Cells[3].Value.ToString() + ");";
+                    com = new MySqlCommand(query, con);
+                    com.ExecuteNonQuery();
+                    con.Close();
                 }
+                Imprimir();
                 lbTotalFinal.Text = "0.00";
+                dVCaja.Rows.Clear();
+                TBcaja.SelectAll();
                 TBcaja.Clear();
                 TBcaja.Focus();
             }
@@ -86,7 +98,7 @@ namespace ControlInventarioUniversidad
             }
             catch (Exception)
             {
-                MessageBox.Show("No sabes conectar una impresora? Solo soluciono por ti a $2500");
+                MessageBox.Show("No sabes conectar una impresora? Solo soluciono por ti a $2500 \n facturo :)");
             }
         }
         private void timer1_Tick(object sender, EventArgs e)

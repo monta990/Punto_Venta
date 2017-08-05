@@ -58,6 +58,7 @@ namespace ControlInventarioUniversidad
             this.btBackup = new System.Windows.Forms.Button();
             this.btPdf = new System.Windows.Forms.Button();
             this.btExcel = new System.Windows.Forms.Button();
+            this.bt_csv = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dGvProductos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBima)).BeginInit();
             this.SuspendLayout();
@@ -212,7 +213,7 @@ namespace ControlInventarioUniversidad
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(484, 421);
+            this.label6.Location = new System.Drawing.Point(587, 421);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(45, 13);
@@ -222,7 +223,7 @@ namespace ControlInventarioUniversidad
             // pBima
             // 
             this.pBima.Image = ((System.Drawing.Image)(resources.GetObject("pBima.Image")));
-            this.pBima.Location = new System.Drawing.Point(486, 438);
+            this.pBima.Location = new System.Drawing.Point(589, 438);
             this.pBima.Margin = new System.Windows.Forms.Padding(2);
             this.pBima.Name = "pBima";
             this.pBima.Size = new System.Drawing.Size(140, 144);
@@ -266,7 +267,7 @@ namespace ControlInventarioUniversidad
             // 
             // btSalir
             // 
-            this.btSalir.Location = new System.Drawing.Point(418, 529);
+            this.btSalir.Location = new System.Drawing.Point(451, 529);
             this.btSalir.Margin = new System.Windows.Forms.Padding(2);
             this.btSalir.Name = "btSalir";
             this.btSalir.Size = new System.Drawing.Size(50, 19);
@@ -312,7 +313,7 @@ namespace ControlInventarioUniversidad
             // 
             // btPdf
             // 
-            this.btPdf.Location = new System.Drawing.Point(9, 558);
+            this.btPdf.Location = new System.Drawing.Point(228, 559);
             this.btPdf.Name = "btPdf";
             this.btPdf.Size = new System.Drawing.Size(83, 23);
             this.btPdf.TabIndex = 19;
@@ -322,7 +323,7 @@ namespace ControlInventarioUniversidad
             // 
             // btExcel
             // 
-            this.btExcel.Location = new System.Drawing.Point(158, 559);
+            this.btExcel.Location = new System.Drawing.Point(317, 559);
             this.btExcel.Name = "btExcel";
             this.btExcel.Size = new System.Drawing.Size(85, 23);
             this.btExcel.TabIndex = 20;
@@ -330,11 +331,22 @@ namespace ControlInventarioUniversidad
             this.btExcel.UseVisualStyleBackColor = true;
             this.btExcel.Click += new System.EventHandler(this.btExcel_Click);
             // 
+            // bt_csv
+            // 
+            this.bt_csv.Location = new System.Drawing.Point(408, 559);
+            this.bt_csv.Name = "bt_csv";
+            this.bt_csv.Size = new System.Drawing.Size(93, 23);
+            this.bt_csv.TabIndex = 21;
+            this.bt_csv.Text = "Exportar CSV";
+            this.bt_csv.UseVisualStyleBackColor = true;
+            this.bt_csv.Click += new System.EventHandler(this.bt_csv_Click);
+            // 
             // Productos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(740, 589);
+            this.Controls.Add(this.bt_csv);
             this.Controls.Add(this.btExcel);
             this.Controls.Add(this.btPdf);
             this.Controls.Add(this.btBackup);
@@ -398,5 +410,6 @@ namespace ControlInventarioUniversidad
         private System.Windows.Forms.Button btBackup;
         private System.Windows.Forms.Button btPdf;
         private System.Windows.Forms.Button btExcel;
+        private System.Windows.Forms.Button bt_csv;
     }
 }

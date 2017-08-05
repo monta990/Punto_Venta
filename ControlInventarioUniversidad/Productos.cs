@@ -151,20 +151,37 @@ namespace ControlInventarioUniversidad
 
         private void btBackup_Click(object sender, EventArgs e)
         {
-            string path=@"C:\respint\backup.sql";
-            using (StreamWriter Swbackup= File.CreateText(path));
-            for (int i = 0; i < dGvProductos.Rows.Count; i++)
+            SaveFileDialog file = new SaveFileDialog();
+            file.Filter = "SQL (*.SQL)| *.SQL";
+            if (file.ShowDialog() == DialogResult.OK)
             {
+                string path = file.FileName;
+                using (StreamWriter swbackup = File.CreateText(path))
+                    for (int i = 0; i < dGvProductos.Rows.Count - 1; i++)
+                    {
+                        swbackup.WriteLine("INSERT INTO productos (Cos_Bar, Nombre, Descripcion, Precio, Descripcion, Imagen) VALUES" +
+                        "('" + dGvProductos[0, i].Value.ToString() + "'," +
+                        dGvProductos[1, i].Value.ToString() + "','" +
+                        dGvProductos[2, i].Value.ToString() + "','" +
+                        dGvProductos[3, i].Value.ToString() + "'," +
+                        dGvProductos[4, i].Value.ToString() + "')");
 
+                    }
+                MessageBox.Show("Archivo " + file.FileName + " generado Correctamente.");
             }
+            System.Diagnostics.Process.Start(file.FileName);
         }
 
         private void btPdf_Click(object sender, EventArgs e)
         {
-            Document pdf = new Document(PageSize.LEGAL.Rotate());
+            SaveFileDialog File = new SaveFileDialog();
+            File.Filter = "PDF (*.PDF)| *.PDF";
+            if (File.ShowDialog() == DialogResult.OK)
+            {
+                Document pdf = new Document(PageSize.LEGAL.Rotate());
             try
             {
-                PdfWriter.GetInstance(pdf, new FileStream("productos.pdf", FileMode.Create));
+                PdfWriter.GetInstance(pdf, new FileStream(File.FileName, FileMode.Create));
                 pdf.Open();
                 //inicio de la generación del pdf
                 PdfPTable Tabla = new PdfPTable(5); //cantidad de columnas PDF
@@ -197,7 +214,8 @@ namespace ControlInventarioUniversidad
             {
 
             }
-            System.Diagnostics.Process.Start("productos.pdf");
+            System.Diagnostics.Process.Start(File.FileName);
+            }
         }
 
         private void btExcel_Click(object sender, EventArgs e)
@@ -240,7 +258,31 @@ namespace ControlInventarioUniversidad
                 libro.SaveAs(File.FileName, Microsoft.Office.Interop.Excel.XlFileFormat.xlOpenXMLWorkbook);
                 libro.Close(true);
                 app.Quit();
+                MessageBox.Show("Archivo " + File.FileName + " guardado correctamente.");
             }
+            System.Diagnostics.Process.Start(File.FileName);
+        }
+
+        private void bt_csv_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog file = new SaveFileDialog();
+            file.Filter = "CSV (*.CSV)| *.CSV";
+            if (file.ShowDialog() == DialogResult.OK)
+            {
+                string path = file.FileName;
+                using (StreamWriter swbackup = File.CreateText(path))
+                    for (int i = 0; i < dGvProductos.Rows.Count; i++)
+                    {
+                        swbackup.WriteLine(dGvProductos[0, i].Value.ToString() + "," +
+                                           dGvProductos[1, i].Value.ToString() + "," +
+                                           dGvProductos[2, i].Value.ToString() + "," +
+                                           dGvProductos[3, i].Value.ToString() + "," +
+                                           dGvProductos[4, i].Value.ToString() + "," +
+                                           dGvProductos[5, i].Value.ToString() + ")");
+                    }
+                MessageBox.Show("Archivo " + file.FileName + " guardado correctamente.");
+            }
+            System.Diagnostics.Process.Start(file.FileName);
         }
     }
 }

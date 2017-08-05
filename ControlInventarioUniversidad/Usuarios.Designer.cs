@@ -67,6 +67,8 @@ namespace ControlInventarioUniversidad
             this.label5 = new System.Windows.Forms.Label();
             this.btPdf = new System.Windows.Forms.Button();
             this.btExcel = new System.Windows.Forms.Button();
+            this.cBusuario = new System.Windows.Forms.ComboBox();
+            this.btn_csv = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dGvUsuarios)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pBima)).BeginInit();
             this.SuspendLayout();
@@ -114,6 +116,7 @@ namespace ControlInventarioUniversidad
             this.Column9.HeaderText = "PASS Usuario";
             this.Column9.Name = "Column9";
             this.Column9.ReadOnly = true;
+            this.Column9.Visible = false;
             // 
             // Column2
             // 
@@ -217,6 +220,7 @@ namespace ControlInventarioUniversidad
             this.tBpssusuario.Location = new System.Drawing.Point(90, 511);
             this.tBpssusuario.Margin = new System.Windows.Forms.Padding(2);
             this.tBpssusuario.Name = "tBpssusuario";
+            this.tBpssusuario.PasswordChar = '*';
             this.tBpssusuario.Size = new System.Drawing.Size(179, 20);
             this.tBpssusuario.TabIndex = 7;
             // 
@@ -266,7 +270,7 @@ namespace ControlInventarioUniversidad
             // 
             // btEliminar
             // 
-            this.btEliminar.Location = new System.Drawing.Point(206, 549);
+            this.btEliminar.Location = new System.Drawing.Point(207, 549);
             this.btEliminar.Margin = new System.Windows.Forms.Padding(2);
             this.btEliminar.Name = "btEliminar";
             this.btEliminar.Size = new System.Drawing.Size(62, 19);
@@ -277,7 +281,7 @@ namespace ControlInventarioUniversidad
             // 
             // btSalir
             // 
-            this.btSalir.Location = new System.Drawing.Point(218, 578);
+            this.btSalir.Location = new System.Drawing.Point(782, 580);
             this.btSalir.Margin = new System.Windows.Forms.Padding(2);
             this.btSalir.Name = "btSalir";
             this.btSalir.Size = new System.Drawing.Size(50, 19);
@@ -312,12 +316,12 @@ namespace ControlInventarioUniversidad
             // 
             // btBackup
             // 
-            this.btBackup.Location = new System.Drawing.Point(102, 578);
+            this.btBackup.Location = new System.Drawing.Point(564, 545);
             this.btBackup.Margin = new System.Windows.Forms.Padding(2);
             this.btBackup.Name = "btBackup";
-            this.btBackup.Size = new System.Drawing.Size(88, 19);
+            this.btBackup.Size = new System.Drawing.Size(143, 23);
             this.btBackup.TabIndex = 18;
-            this.btBackup.Text = "Respaldar SQL";
+            this.btBackup.Text = "Resp tabla Usuario";
             this.btBackup.UseVisualStyleBackColor = true;
             this.btBackup.Click += new System.EventHandler(this.btBackup_Click);
             // 
@@ -395,7 +399,7 @@ namespace ControlInventarioUniversidad
             // 
             // btPdf
             // 
-            this.btPdf.Location = new System.Drawing.Point(548, 549);
+            this.btPdf.Location = new System.Drawing.Point(564, 578);
             this.btPdf.Name = "btPdf";
             this.btPdf.Size = new System.Drawing.Size(91, 23);
             this.btPdf.TabIndex = 27;
@@ -405,7 +409,7 @@ namespace ControlInventarioUniversidad
             // 
             // btExcel
             // 
-            this.btExcel.Location = new System.Drawing.Point(661, 549);
+            this.btExcel.Location = new System.Drawing.Point(672, 578);
             this.btExcel.Name = "btExcel";
             this.btExcel.Size = new System.Drawing.Size(92, 23);
             this.btExcel.TabIndex = 28;
@@ -413,11 +417,36 @@ namespace ControlInventarioUniversidad
             this.btExcel.UseVisualStyleBackColor = true;
             this.btExcel.Click += new System.EventHandler(this.btExcel_Click);
             // 
+            // cBusuario
+            // 
+            this.cBusuario.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cBusuario.FormattingEnabled = true;
+            this.cBusuario.Items.AddRange(new object[] {
+            "Administrador",
+            "Cajero"});
+            this.cBusuario.Location = new System.Drawing.Point(90, 435);
+            this.cBusuario.Name = "cBusuario";
+            this.cBusuario.Size = new System.Drawing.Size(179, 21);
+            this.cBusuario.TabIndex = 29;
+            this.cBusuario.SelectedIndexChanged += new System.EventHandler(this.cBusuario_SelectedIndexChanged);
+            // 
+            // btn_csv
+            // 
+            this.btn_csv.Location = new System.Drawing.Point(740, 545);
+            this.btn_csv.Name = "btn_csv";
+            this.btn_csv.Size = new System.Drawing.Size(92, 23);
+            this.btn_csv.TabIndex = 31;
+            this.btn_csv.Text = "Exportar CSV";
+            this.btn_csv.UseVisualStyleBackColor = true;
+            this.btn_csv.Click += new System.EventHandler(this.btn_csv_Click);
+            // 
             // Usuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(999, 604);
+            this.Controls.Add(this.btn_csv);
+            this.Controls.Add(this.cBusuario);
             this.Controls.Add(this.btExcel);
             this.Controls.Add(this.btPdf);
             this.Controls.Add(this.label5);
@@ -485,6 +514,8 @@ namespace ControlInventarioUniversidad
         private System.Windows.Forms.TextBox tBapmaterno;
         private System.Windows.Forms.TextBox tBemail;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btPdf;
+        private System.Windows.Forms.Button btExcel;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
@@ -494,7 +525,7 @@ namespace ControlInventarioUniversidad
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewImageColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.Button btPdf;
-        private System.Windows.Forms.Button btExcel;
+        private System.Windows.Forms.ComboBox cBusuario;
+        private System.Windows.Forms.Button btn_csv;
     }
 }
