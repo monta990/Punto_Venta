@@ -7,8 +7,11 @@ iTextSharp instalar via nuget en visual studio
 Microsoft.Office.Interop.Excel instalar via nuget en visual studio
 
 Usar el SQL suminstrado como base de datos inicial
+
 Usuarios predeteminados del Sistema:
+
 Administrador: Usuario admin, Contraseña admin
+
 Cajero: Usuario cajero, Contraseña cajero
 
 POR EL MOMENTO ES NECESARIO AJUSTAR LA CONEXIÓN A MYSQL EN CADA FOMULARIO (PRODUCTOS, USUARIOS, CAJA Y REPORTE DE VENTAS), PROXIMAMENTE SE ACTUALIZARA CON CLASE DE BASE DE DATOS
