@@ -3,6 +3,7 @@ Sencillo punto de venta
 
 Se requieren los modulos
 iTextSharp instalar via nuget en visual studio
+
 Microsoft.Office.Interop.Excel instalar via nuget en visual studio
 
 Usar el SQL suminstrado como base de datos inicial
