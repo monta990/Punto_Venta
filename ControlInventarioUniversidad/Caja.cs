@@ -31,7 +31,7 @@ namespace ControlInventarioUniversidad
         public void gentotal() //calcula el total
         {
             float total = 0;
-            for (int i = 0; i < dVCaja.RowCount; i++)
+            for (int i = 0; i < dVCaja.RowCount; i++) //conteo del precio de cada articulo
             {
                 total += float.Parse(dVCaja[3,i].Value.ToString()); //suma cada articulo a total
                 lbTotalFinal.Text = total.ToString(); //label de total a variable
@@ -67,7 +67,7 @@ namespace ControlInventarioUniversidad
                     con.Close();
                 }
                 Imprimir(); // llama imprimir
-                lbTotalFinal.Text = "0.00";
+                lbTotalFinal.Text = "0.00"; //reinicioa label de total a 0
                 dVCaja.Rows.Clear();
                 TBcaja.SelectAll();
                 TBcaja.Clear();
@@ -78,20 +78,20 @@ namespace ControlInventarioUniversidad
         {
             try
             {
-                Ticket tiquetcito = new Ticket();
-                tiquetcito.AddHeaderLine("Don Baraton S.A de C.V");
-                tiquetcito.HeaderImage = Image.FromFile(@"D:\imga.bmp");
-                tiquetcito.AddSubHeaderLine(DateTime.Now.ToShortDateString().ToString());
-                tiquetcito.AddSubHeaderLine(DateTime.Now.ToShortTimeString().ToString());
+                Ticket tiquetcito = new Ticket(); //inicio de ticket
+                tiquetcito.AddHeaderLine("Don Baraton S.A de C.V"); //encabezado
+                tiquetcito.HeaderImage = Image.FromFile(@"D:\imga.bmp"); //imagen de inicio de ticket
+                tiquetcito.AddSubHeaderLine(DateTime.Now.ToShortDateString().ToString()); //muestra fecha
+                tiquetcito.AddSubHeaderLine(DateTime.Now.ToShortTimeString().ToString()); //muestra hora
 
-                foreach (DataGridViewRow R in dVCaja.Rows)
+                foreach (DataGridViewRow R in dVCaja.Rows) //se imprimen los productos
                 {
                     tiquetcito.AddItem(R.Cells[0].Value.ToString(), R.Cells[1].Value.ToString(), R.Cells[2].Value.ToString());
                 }
-                tiquetcito.AddTotal("Total: ", lbTotalFinal.Text);
-                tiquetcito.AddTotal("Cambio: ", cambio.ToString());
-                tiquetcito.AddFooterLine("Gracias por su compra");
-                tiquetcito.PrintTicket("EC-PM-5890X");
+                tiquetcito.AddTotal("Total: ", lbTotalFinal.Text); //impresión de total
+                tiquetcito.AddTotal("Cambio: ", cambio.ToString()); //impresion del cambio
+                tiquetcito.AddFooterLine("Gracias por su compra"); //leyanda de pie de ticket
+                tiquetcito.PrintTicket("EC-PM-5890X"); //es necesario especificar el nombre de la impresora, tal y como esta registrada en el sistema operativo
             }
             catch (Exception)
             {

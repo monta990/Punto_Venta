@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Punto de Venta")]
-[assembly: AssemblyDescription("Sistema de Punto de Venta")]
+[assembly: AssemblyDescription("Sistema de Punto de Venta para fines educativos")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Edwin Elias Alvarez - Sontechs México")]
 [assembly: AssemblyProduct("Sistema de Punto de Venta")]
-[assembly: AssemblyCopyright("Copyright © 2017 Sontechs México")]
+[assembly: AssemblyCopyright("Copyright © 2017 Sontechs México - Se autoriza el uso para fines educativos")]
 [assembly: AssemblyTrademark("Sontechs México")]
 [assembly: AssemblyCulture("")]
 

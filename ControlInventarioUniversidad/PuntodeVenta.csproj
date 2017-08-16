@@ -47,7 +47,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>1491361926_box.ico</ApplicationIcon>
+    <ApplicationIcon>001_512_TzH_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="itextsharp, Version=5.4.1.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
@@ -189,6 +189,7 @@
     <None Include="Resources\Save_6530.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="001_512_TzH_icon.ico" />
     <Content Include="1491361926_box.ico" />
     <None Include="Resources\lista.png" />
     <None Include="Resources\PencilTool_206.ico" />
