@@ -31,7 +31,7 @@ namespace ControlInventarioUniversidad
                     swbackup.WriteLine("<html><head>");
                     //swbackup.WriteLine("<style>table {border - collapse: collapse;}table, td, th {border: 1px solid black;}</style>");
                     swbackup.WriteLine("</head><body>");
-                    swbackup.WriteLine("<center><h1>Reporte Ventas</h1></center>");
+                    swbackup.WriteLine("<center><h1>Reporte de Ventas</h1></center>");
                     swbackup.WriteLine("<table border='1' cellspacing='0'>");
                     swbackup.WriteLine("<tr><th>ID de Venta</th><th>Fecha Venta</th><th>Total Venta</th></tr>");
                         con = new MySqlConnection("Server = 127.0.0.1;Database=integradora;Uid=root;Pwd=alvarez");
@@ -45,6 +45,7 @@ namespace ControlInventarioUniversidad
                     }
                     con.Close();
                     swbackup.WriteLine("</table>");
+                    swbackup.WriteLine("<center><h4>Ctrl + P para imprimir</h4></center>");
                     swbackup.WriteLine("</body></html>");
                 }
                 webBrowser1.Url=new Uri( Directory.GetCurrentDirectory()+"/"+path); //carga el archivo creado en el webbrowser
