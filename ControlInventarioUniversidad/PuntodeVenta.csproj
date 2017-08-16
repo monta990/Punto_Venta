@@ -117,11 +117,11 @@
     <Compile Include="menu1.Designer.cs">
       <DependentUpon>menu1.cs</DependentUpon>
     </Compile>
-    <Compile Include="menu2.cs">
+    <Compile Include="Reporte.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="menu2.Designer.cs">
-      <DependentUpon>menu2.cs</DependentUpon>
+    <Compile Include="Reporte.Designer.cs">
+      <DependentUpon>Reporte.cs</DependentUpon>
     </Compile>
     <Compile Include="Usuarios.cs">
       <SubType>Form</SubType>
@@ -152,8 +152,8 @@
     <EmbeddedResource Include="menu1.resx">
       <DependentUpon>menu1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="menu2.resx">
-      <DependentUpon>menu2.cs</DependentUpon>
+    <EmbeddedResource Include="Reporte.resx">
+      <DependentUpon>Reporte.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Usuarios.resx">
       <DependentUpon>Usuarios.cs</DependentUpon>

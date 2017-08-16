@@ -78,5 +78,10 @@ namespace ControlInventarioUniversidad
         {
             lbBienvenido.Text="Bienvenido " + Inicio.nombre + " " + Inicio.ApellidoP + " " + Inicio.ApellidoM;
         }
+
+        private void verInventarioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new Reporte().ShowDialog();
+        }
     }
 }

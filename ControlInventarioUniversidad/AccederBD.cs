@@ -89,11 +89,6 @@ namespace ControlInventarioUniversidad
                     menu1 form = new menu1(); //Menu de almacen
                     form.ShowDialog();
                 }
-                else if (valor == 2)
-                {
-                    menu2 form = new menu2(); //Menu de oficina
-                    form.ShowDialog();
-                }
             }
             catch (MySqlException mse)
             {

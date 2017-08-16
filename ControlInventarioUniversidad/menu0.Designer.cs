@@ -36,7 +36,6 @@ namespace ControlInventarioUniversidad
             this.inventarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verInventarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.verUsuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaDelSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,8 +85,7 @@ namespace ControlInventarioUniversidad
             // reportesToolStripMenuItem
             // 
             this.reportesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.verInventarioToolStripMenuItem,
-            this.verUsuariosToolStripMenuItem});
+            this.verInventarioToolStripMenuItem});
             this.reportesToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.reportesToolStripMenuItem.Image = global::ControlInventarioUniversidad.Properties.Resources.lista;
             this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
@@ -98,15 +96,9 @@ namespace ControlInventarioUniversidad
             // 
             this.verInventarioToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("verInventarioToolStripMenuItem.Image")));
             this.verInventarioToolStripMenuItem.Name = "verInventarioToolStripMenuItem";
-            this.verInventarioToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
-            this.verInventarioToolStripMenuItem.Text = "Reporte de Inventario";
-            // 
-            // verUsuariosToolStripMenuItem
-            // 
-            this.verUsuariosToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("verUsuariosToolStripMenuItem.Image")));
-            this.verUsuariosToolStripMenuItem.Name = "verUsuariosToolStripMenuItem";
-            this.verUsuariosToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
-            this.verUsuariosToolStripMenuItem.Text = "Lista de Usuarios";
+            this.verInventarioToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
+            this.verInventarioToolStripMenuItem.Text = "Reporte de Venta";
+            this.verInventarioToolStripMenuItem.Click += new System.EventHandler(this.verInventarioToolStripMenuItem_Click);
             // 
             // ayudaToolStripMenuItem
             // 
@@ -260,7 +252,6 @@ namespace ControlInventarioUniversidad
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ToolStripMenuItem ayudaDelSistemaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem verUsuariosToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.Label lbBienvenido;
         private System.Windows.Forms.Timer timer1;
