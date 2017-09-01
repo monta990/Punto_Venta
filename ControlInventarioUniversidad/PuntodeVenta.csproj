@@ -50,13 +50,11 @@
     <ApplicationIcon>001_512_TzH_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="itextsharp, Version=5.4.1.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\itextsharp.dll</HintPath>
+    <Reference Include="itextsharp, Version=5.5.12.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.12\lib\itextsharp.dll</HintPath>
     </Reference>
-    <Reference Include="LibPrintTicket, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\LibPrintTicket.dll</HintPath>
+    <Reference Include="LibPrintTicket">
+      <HintPath>D:\Edwin\Edwin\Desktop\Punto_Venta\packages\LibPrintTicket\LibPrintTicket.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -64,11 +62,7 @@
       <HintPath>bin\Debug\Microsoft.Office.Interop.Excel.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\DemoBaseDatos\DemoBaseDatos\MySql.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="MySqlBackup, Version=2.0.9.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySqlBackup.NET.2.0.9.5\lib\net45\MySqlBackup.dll</HintPath>
+      <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
